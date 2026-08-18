@@ -57,9 +57,6 @@ export default function BottomNavBar() {
                   isActive ? 'text-slate-900 scale-110' : 'text-slate-400'
                 }`} 
               />
-              {isActive && (
-                <span className="w-1 h-1 rounded-full bg-slate-900 absolute -bottom-1.5" />
-              )}
             </div>
             <span className="text-[10px] mt-1 tracking-tight">
               {item.label}

@@ -14,6 +14,7 @@ import {
   Settings, 
   SquareTerminal, 
   FileCode, 
+  Puzzle,
   Layers,
   Link2,
   X
@@ -71,6 +72,7 @@ const NAVIGATION_GROUPS: NavGroup[] = [
     items: [
       { id: 'api-webhooks', label: 'API Keys & Webhooks', href: '/user/api-webhooks', icon: SquareTerminal },
       { id: 'docs', label: 'API Documentation', href: '/user/docs', icon: FileCode },
+      { id: 'plugins', label: 'Plugins & SDKs', href: '/user/plugins', icon: Puzzle },
     ]
   }
 ];
@@ -133,7 +135,7 @@ export default function Sidebar({
           {NAVIGATION_GROUPS.map((group, groupIdx) => (
             <div key={`group-${groupIdx}`} className="space-y-1">
               {group.category && (
-                <div className="px-3.5 pb-1 text-xs font-semibold text-slate-400 tracking-tight">
+                <div className="px-3.5 pb-1 text-xs font-semibold text-slate-700 tracking-tight">
                   {group.category}
                 </div>
               )}
@@ -149,12 +151,12 @@ export default function Sidebar({
                     onClick={() => onClose && onClose()}
                     className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-lg text-sm transition-colors ${
                       isActive
-                        ? 'bg-slate-100 text-slate-900 font-semibold'
-                        : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 font-medium'
+                        ? 'bg-slate-100 text-slate-900 font-semibold shadow-2xs'
+                        : 'text-slate-900 hover:text-black hover:bg-slate-50 font-medium'
                     }`}
                   >
                     <div className="flex items-center gap-3.5">
-                      <Icon className={`w-5 h-5 shrink-0 ${isActive ? 'text-slate-900' : 'text-slate-400'}`} />
+                      <Icon className="w-5 h-5 shrink-0 text-slate-900" />
                       <span>{item.label}</span>
                     </div>
 

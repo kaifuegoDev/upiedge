@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { 
   Eye, 
   EyeOff, 
@@ -17,6 +18,7 @@ export default function AuthView({
   initialMode = 'login',
   onAuthSuccess
 }: AuthViewProps) {
+  const router = useRouter();
   const [mode, setMode] = useState<'login' | 'register'>(initialMode);
   const [mobileNumber, setMobileNumber] = useState<string>('9876543210');
   const [email, setEmail] = useState<string>('merchant@upiedge.com');
@@ -34,7 +36,7 @@ export default function AuthView({
       if (onAuthSuccess) {
         onAuthSuccess();
       } else {
-        window.location.href = '/user/dashboard';
+        router.push('/user/dashboard');
       }
     }, 400);
   };

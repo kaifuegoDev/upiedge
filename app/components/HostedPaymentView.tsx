@@ -1,6 +1,8 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { QRCodeSVG } from 'qrcode.react';
 import { 
   ArrowLeft, 
@@ -12,6 +14,11 @@ import {
   ChevronUp,
   MoreHorizontal
 } from 'lucide-react';
+import bhimImg from '../assets/bhim (1).jpg';
+import freechargeImg from '../assets/freecharge.png';
+import gpayImg from '../assets/images (20).jpg';
+import paytmImg from '../assets/paytm-logo-png_seeklogo-501241.png';
+import phonepeImg from '../assets/images (1).png';
 
 interface HostedPaymentViewProps {
   orderId?: string;
@@ -23,56 +30,57 @@ interface HostedPaymentViewProps {
   onPaymentSuccess?: (orderId: string, utr: string) => void;
 }
 
-// High Quality Brand SVGs
-const PaytmIcon = () => (
-  <div className="w-8 h-8 rounded-md bg-[#002e6e] flex items-center justify-center text-white px-1 shadow-2xs">
-    <span className="font-black text-[9px] tracking-tight">pay<span className="text-[#00b9f5]">tm</span></span>
+// Unified High-Quality Brand Icon Components
+interface IconProps {
+  size?: 'sm' | 'md';
+}
+
+const PhonePeIcon = ({ size = 'md' }: IconProps) => (
+  <div className={`${size === 'sm' ? 'w-7 h-7' : 'w-9.5 h-9.5'} rounded-md bg-white border border-slate-200 overflow-hidden flex items-center justify-center shadow-2xs shrink-0 select-none`}>
+    <Image src={phonepeImg} alt="PhonePe" className="w-full h-full object-cover" />
   </div>
 );
 
-const FreechargeIcon = () => (
-  <div className="w-8 h-8 rounded-md bg-[#fdf2f0] border border-orange-100 flex items-center justify-center shadow-2xs">
-    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none">
-      <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" fill="#f97316" stroke="#ea580c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-    </svg>
+const GPayIcon = ({ size = 'md' }: IconProps) => (
+  <div className={`${size === 'sm' ? 'w-7 h-7' : 'w-9.5 h-9.5'} rounded-md bg-white border border-slate-200 overflow-hidden flex items-center justify-center shadow-2xs shrink-0 select-none`}>
+    <Image src={gpayImg} alt="Google Pay" className="w-full h-full object-cover" />
   </div>
 );
 
-const GPayIcon = () => (
-  <div className="w-8 h-8 rounded-md bg-white border border-slate-200 flex items-center justify-center p-1 shadow-2xs">
-    <svg className="w-5 h-5" viewBox="0 0 24 24">
-      <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-      <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-      <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
-      <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
-    </svg>
+const PaytmIcon = ({ size = 'md' }: IconProps) => (
+  <div className={`${size === 'sm' ? 'w-7 h-7' : 'w-9.5 h-9.5'} rounded-md bg-white border border-slate-200 overflow-hidden flex items-center justify-center shadow-2xs shrink-0 select-none`}>
+    <Image src={paytmImg} alt="Paytm" className="w-full h-full object-cover" />
   </div>
 );
 
-const OtherUpiIcon = () => (
-  <div className="w-8 h-8 rounded-md bg-slate-100 border border-slate-200 text-slate-500 flex items-center justify-center shadow-2xs">
-    <MoreHorizontal className="w-4 h-4" />
+const FreechargeIcon = ({ size = 'md' }: IconProps) => (
+  <div className={`${size === 'sm' ? 'w-7 h-7' : 'w-9.5 h-9.5'} rounded-md bg-white border border-slate-200 overflow-hidden flex items-center justify-center shadow-2xs shrink-0 select-none`}>
+    <Image src={freechargeImg} alt="Freecharge" className="w-full h-full object-cover" />
   </div>
 );
 
-const UpiQrIcon = () => (
-  <div className="w-8 h-8 rounded-md bg-emerald-50 border border-emerald-200 flex items-center justify-center p-1 shadow-2xs">
-    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none">
-      <path d="M4 4h6v6H4V4zm10 0h6v6h-6V4zM4 14h6v6H4v-6zm10 3h3v3h-3v-3zm3-3h3v3h-3v-3z" fill="#059669" />
-      <path d="M7 7h.01M17 7h.01M7 17h.01" stroke="#047857" strokeWidth="2" strokeLinecap="round" />
-    </svg>
+const OtherUpiIcon = ({ size = 'md' }: IconProps) => (
+  <div className={`${size === 'sm' ? 'w-7 h-7' : 'w-9.5 h-9.5'} rounded-md bg-slate-100 border border-slate-200 text-slate-500 flex items-center justify-center shadow-2xs shrink-0 select-none`}>
+    <MoreHorizontal className={`${size === 'sm' ? 'w-3.5 h-3.5' : 'w-5 h-5'}`} />
+  </div>
+);
+
+const UpiQrIcon = ({ size = 'md' }: IconProps) => (
+  <div className={`${size === 'sm' ? 'w-7 h-7' : 'w-9.5 h-9.5'} rounded-md bg-white border border-slate-200 overflow-hidden flex items-center justify-center shadow-2xs shrink-0 select-none`}>
+    <Image src={bhimImg} alt="UPI" className="w-full h-full object-cover" />
   </div>
 );
 
 export default function HostedPaymentView({
-  orderId = 'ORD_100293',
-  amount = 299.00,
+  orderId = 'ORD_99182',
+  amount = 499.00,
   upiVpa = 'merchant@upi',
-  payeeName = 'UPIEdge',
-  note = 'Order Payment',
+  payeeName = 'UPIEdge Demo Merchant',
+  note = 'Order #ORD_99182 via UPIEdge Gateway',
   onClose,
   onPaymentSuccess
 }: HostedPaymentViewProps) {
+  const router = useRouter();
   // 10 minutes countdown timer (546 seconds ~ 09:06)
   const [timeLeft, setTimeLeft] = useState<number>(546);
   const [mobileViewMode, setMobileViewMode] = useState<'apps' | 'qr'>('apps');
@@ -118,7 +126,7 @@ export default function HostedPaymentView({
       {/* ========================================================================= */}
       {/* 📱 1. MOBILE & CAPACITOR VIEW (Visible on <md screens)                     */}
       {/* ========================================================================= */}
-      <div className="flex flex-col min-h-screen bg-[#f8fafc] md:hidden">
+      <div className="flex flex-col min-h-screen bg-white md:hidden">
         
         {/* Mobile Top Header Bar */}
         <header className="h-16 bg-white border-b border-slate-200 px-4 flex items-center justify-between sticky top-0 z-30">
@@ -153,13 +161,6 @@ export default function HostedPaymentView({
               </div>
             </div>
           </div>
-
-          <button
-            onClick={handleSimulateSuccess}
-            className="text-[10px] font-bold text-emerald-600 bg-emerald-50 border border-emerald-200 px-2 py-1 rounded-md active:scale-95"
-          >
-            Test Pay
-          </button>
         </header>
 
         {/* Mobile Main Body */}
@@ -184,7 +185,7 @@ export default function HostedPaymentView({
               <button
                 onClick={() => {
                   if (onClose) onClose();
-                  else window.location.href = '/user/dashboard';
+                  else router.push('/user/dashboard');
                 }}
                 className="w-full py-2.5 rounded-md bg-slate-900 text-white font-bold text-xs active:scale-95"
               >
@@ -204,42 +205,26 @@ export default function HostedPaymentView({
               {/* White Crisp Card with High-Res Brand SVG Rows */}
               <div className="bg-white rounded-lg border border-slate-200 shadow-xs overflow-hidden divide-y divide-slate-100">
                 
-                {/* 1. Paytm */}
+                {/* 1. PhonePe */}
                 <label 
-                  onClick={() => setSelectedApp('paytm')} 
-                  className="flex items-center justify-between px-4 py-3.5 cursor-pointer hover:bg-slate-50 transition"
+                  onClick={() => setSelectedApp('phonepe')} 
+                  className="flex items-center justify-between px-4 py-3 cursor-pointer hover:bg-slate-50 transition"
                 >
                   <div className="flex items-center gap-3.5">
-                    <PaytmIcon />
-                    <span className="text-xs font-bold text-slate-800">Paytm</span>
+                    <PhonePeIcon />
+                    <span className="text-xs font-bold text-slate-800">PhonePe</span>
                   </div>
                   <div className={`w-4.5 h-4.5 rounded-full border-2 flex items-center justify-center transition ${
-                    selectedApp === 'paytm' ? 'border-blue-600' : 'border-slate-300'
+                    selectedApp === 'phonepe' ? 'border-blue-600' : 'border-slate-300'
                   }`}>
-                    {selectedApp === 'paytm' && <div className="w-2 h-2 rounded-full bg-blue-600" />}
+                    {selectedApp === 'phonepe' && <div className="w-2 h-2 rounded-full bg-blue-600" />}
                   </div>
                 </label>
 
-                {/* 2. Freecharge */}
-                <label 
-                  onClick={() => setSelectedApp('freecharge')} 
-                  className="flex items-center justify-between px-4 py-3.5 cursor-pointer hover:bg-slate-50 transition"
-                >
-                  <div className="flex items-center gap-3.5">
-                    <FreechargeIcon />
-                    <span className="text-xs font-bold text-slate-800">Freecharge</span>
-                  </div>
-                  <div className={`w-4.5 h-4.5 rounded-full border-2 flex items-center justify-center transition ${
-                    selectedApp === 'freecharge' ? 'border-blue-600' : 'border-slate-300'
-                  }`}>
-                    {selectedApp === 'freecharge' && <div className="w-2 h-2 rounded-full bg-blue-600" />}
-                  </div>
-                </label>
-
-                {/* 3. Google Pay */}
+                {/* 2. Google Pay */}
                 <label 
                   onClick={() => setSelectedApp('gpay')} 
-                  className="flex items-center justify-between px-4 py-3.5 cursor-pointer hover:bg-slate-50 transition"
+                  className="flex items-center justify-between px-4 py-3 cursor-pointer hover:bg-slate-50 transition"
                 >
                   <div className="flex items-center gap-3.5">
                     <GPayIcon />
@@ -252,10 +237,42 @@ export default function HostedPaymentView({
                   </div>
                 </label>
 
-                {/* 4. Other UPI Apps */}
+                {/* 3. Paytm */}
+                <label 
+                  onClick={() => setSelectedApp('paytm')} 
+                  className="flex items-center justify-between px-4 py-3 cursor-pointer hover:bg-slate-50 transition"
+                >
+                  <div className="flex items-center gap-3.5">
+                    <PaytmIcon />
+                    <span className="text-xs font-bold text-slate-800">Paytm</span>
+                  </div>
+                  <div className={`w-4.5 h-4.5 rounded-full border-2 flex items-center justify-center transition ${
+                    selectedApp === 'paytm' ? 'border-blue-600' : 'border-slate-300'
+                  }`}>
+                    {selectedApp === 'paytm' && <div className="w-2 h-2 rounded-full bg-blue-600" />}
+                  </div>
+                </label>
+
+                {/* 4. Freecharge */}
+                <label 
+                  onClick={() => setSelectedApp('freecharge')} 
+                  className="flex items-center justify-between px-4 py-3 cursor-pointer hover:bg-slate-50 transition"
+                >
+                  <div className="flex items-center gap-3.5">
+                    <FreechargeIcon />
+                    <span className="text-xs font-bold text-slate-800">Freecharge</span>
+                  </div>
+                  <div className={`w-4.5 h-4.5 rounded-full border-2 flex items-center justify-center transition ${
+                    selectedApp === 'freecharge' ? 'border-blue-600' : 'border-slate-300'
+                  }`}>
+                    {selectedApp === 'freecharge' && <div className="w-2 h-2 rounded-full bg-blue-600" />}
+                  </div>
+                </label>
+
+                {/* 6. Other UPI Apps */}
                 <label 
                   onClick={() => setSelectedApp('other')} 
-                  className="flex items-center justify-between px-4 py-3.5 cursor-pointer hover:bg-slate-50 transition"
+                  className="flex items-center justify-between px-4 py-3 cursor-pointer hover:bg-slate-50 transition"
                 >
                   <div className="flex items-center gap-3.5">
                     <OtherUpiIcon />
@@ -268,10 +285,10 @@ export default function HostedPaymentView({
                   </div>
                 </label>
 
-                {/* 5. UPI QR (Default Selected) */}
+                {/* 7. UPI QR (Default Selected) */}
                 <label 
                   onClick={() => setSelectedApp('qr')} 
-                  className="flex items-center justify-between px-4 py-3.5 cursor-pointer hover:bg-slate-50 transition"
+                  className="flex items-center justify-between px-4 py-3 cursor-pointer hover:bg-slate-50 transition"
                 >
                   <div className="flex items-center gap-3.5">
                     <UpiQrIcon />
@@ -286,11 +303,9 @@ export default function HostedPaymentView({
               </div>
 
               {/* Powered By Footer in Body */}
-              <div className="pt-10 text-center">
-                <p className="text-xs text-slate-400 font-medium flex items-center justify-center gap-1.5">
-                  <span>Powered by</span>
-                  <span className="font-extrabold text-slate-800">⚡ UPIEdge</span>
-                </p>
+              <div className="pt-2 flex items-center justify-center gap-1.5 text-[10px] text-slate-400 font-medium select-none">
+                <Layers className="w-3.5 h-3.5 text-slate-400" />
+                <span>Secured by UPIEdge Gateway</span>
               </div>
             </div>
           ) : (
@@ -310,16 +325,11 @@ export default function HostedPaymentView({
                 </div>
 
                 {/* Supported Apps SVG Row */}
-                <div className="flex items-center justify-center gap-2.5">
-                  <div className="w-7 h-7 rounded-md bg-[#5f259f] text-white flex items-center justify-center font-bold text-[10px] shadow-2xs">
-                    पे
-                  </div>
-                  <GPayIcon />
-                  <div className="w-7 h-7 rounded-md bg-slate-900 text-white flex items-center justify-center font-bold text-[10px] shadow-2xs">
-                    CRED
-                  </div>
-                  <PaytmIcon />
-                  <UpiQrIcon />
+                <div className="flex items-center justify-center gap-2">
+                  <PhonePeIcon size="sm" />
+                  <GPayIcon size="sm" />
+                  <PaytmIcon size="sm" />
+                  <FreechargeIcon size="sm" />
                 </div>
 
                 {/* Dynamic QR Box with clean rounded-lg */}
@@ -342,7 +352,7 @@ export default function HostedPaymentView({
               <div className="pt-4 text-center">
                 <p className="text-xs text-slate-400 font-medium flex items-center justify-center gap-1.5">
                   <span>Powered by</span>
-                  <span className="font-extrabold text-slate-800">⚡ UPIEdge</span>
+                  <span className="font-extrabold text-slate-800">UPIEdge</span>
                 </p>
               </div>
             </div>
@@ -387,10 +397,11 @@ export default function HostedPaymentView({
           {onClose && (
             <button
               onClick={() => setShowCancelConfirm(true)}
-              className="absolute top-5 right-5 w-7 h-7 rounded-full border border-slate-200 hover:bg-slate-100 text-slate-400 hover:text-slate-700 flex items-center justify-center transition active:scale-95 z-20"
+              className="absolute top-3.5 right-3.5 w-7 h-7 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 inline-flex items-center justify-center p-0 transition active:scale-95 z-20 cursor-pointer shadow-2xs leading-none"
               title="Cancel & Exit"
+              aria-label="Close"
             >
-              <X className="w-3.5 h-3.5" />
+              <X className="w-3.5 h-3.5 shrink-0 block" />
             </button>
           )}
 
@@ -431,10 +442,10 @@ export default function HostedPaymentView({
             </div>
           ) : (
             /* Desktop 3-Column Gateway Layout */
-            <div className="grid grid-cols-12 gap-5 items-start">
+            <div className="grid grid-cols-12 gap-5 items-stretch">
               
               {/* Left Column: Calculation Box */}
-              <div className="col-span-4 rounded-lg border border-slate-200 p-4.5 bg-white flex flex-col justify-between shadow-2xs min-h-[390px]">
+              <div className="col-span-4 rounded-lg border border-slate-200 p-5 bg-white flex flex-col justify-between shadow-2xs min-h-[420px] h-full">
                 <div className="space-y-5">
                   <div className="flex items-center gap-2.5">
                     <div className="w-7 h-7 rounded-md bg-slate-900 text-white flex items-center justify-center font-bold text-xs shadow-xs">
@@ -445,13 +456,13 @@ export default function HostedPaymentView({
                     </span>
                   </div>
 
-                  <div className="rounded-md border border-slate-100 bg-[#f8fafc] p-3.5 space-y-2.5">
+                  <div className="rounded-md border border-slate-100 bg-[#f8fafc] p-4 space-y-3">
                     <div className="flex items-center justify-between text-xs font-bold text-slate-800">
                       <span>Total :</span>
                       <span className="font-mono text-xs">₹{amount.toFixed(2)}</span>
                     </div>
                     <div className="border-t border-slate-200/80" />
-                    <div className="space-y-1.5 text-xs text-slate-500">
+                    <div className="space-y-2 text-xs text-slate-500">
                       <div className="flex items-center justify-between">
                         <span>Subtotal</span>
                         <span className="font-mono font-medium text-slate-700">₹{amount.toFixed(2)}</span>
@@ -472,20 +483,20 @@ export default function HostedPaymentView({
                 <div className="pt-3 text-center border-t border-slate-100 mt-3">
                   <p className="text-[11px] text-slate-400 font-medium flex items-center justify-center gap-1.5">
                     <span>Powered by</span>
-                    <span className="font-bold text-slate-900">⚡ UPIEdge</span>
+                    <span className="font-bold text-slate-900">UPIEdge</span>
                   </p>
                 </div>
               </div>
 
               {/* Middle Column: Payment Options */}
-              <div className="col-span-3 space-y-2">
+              <div className="col-span-3 flex flex-col space-y-2 h-full">
                 <h4 className="text-xs font-bold text-slate-900">Payment Options</h4>
-                <div className="rounded-lg border border-slate-200 bg-white flex flex-col shadow-2xs overflow-hidden min-h-[360px]">
+                <div className="rounded-lg border border-slate-200 bg-white flex flex-col shadow-2xs overflow-hidden flex-1 min-h-[390px] h-full">
                   <div className="p-3 border-b border-slate-100">
                     <p className="text-[11px] text-slate-600 font-semibold">UPI Payment</p>
                   </div>
                   <div className="p-3 flex-1">
-                    <div className="p-2.5 rounded-md bg-[#f5f3ff] border border-purple-200 flex items-center gap-2.5 shadow-2xs cursor-pointer">
+                    <div className="p-3 rounded-md bg-[#f5f3ff] border border-purple-200 flex items-center gap-3 shadow-2xs cursor-pointer hover:border-purple-300 transition">
                       <UpiQrIcon />
                       <div>
                         <h5 className="text-xs font-bold text-slate-900">UPI</h5>
@@ -497,28 +508,28 @@ export default function HostedPaymentView({
               </div>
 
               {/* Right Column: Dynamic Scan QR View */}
-              <div className="col-span-5 rounded-lg border border-slate-200 p-5 bg-white flex flex-col items-center justify-between text-center shadow-2xs min-h-[390px]">
-                <div className="space-y-3 flex flex-col items-center w-full">
+              <div className="col-span-5 rounded-lg border border-slate-200 p-5 bg-white flex flex-col items-center justify-center text-center shadow-2xs min-h-[420px] h-full space-y-3.5">
+                <div className="space-y-2.5 flex flex-col items-center w-full">
                   <h4 className="text-xs font-bold text-slate-900">Scan via any UPI app</h4>
 
                   <div className="flex items-center justify-center gap-2">
-                    <div className="w-6 h-6 rounded-md bg-[#5f259f] text-white flex items-center justify-center font-bold text-[8px]" title="PhonePe">पे</div>
-                    <GPayIcon />
-                    <PaytmIcon />
-                    <UpiQrIcon />
+                    <PhonePeIcon size="sm" />
+                    <GPayIcon size="sm" />
+                    <PaytmIcon size="sm" />
+                    <FreechargeIcon size="sm" />
                   </div>
 
-                  <div className="p-3 bg-white rounded-lg border border-slate-200 shadow-2xs">
+                  <div className="p-2.5 bg-white rounded-lg border border-slate-200 shadow-2xs">
                     <QRCodeSVG
                       value={upiIntentString}
-                      size={175}
+                      size={180}
                       level="M"
                       includeMargin={false}
                     />
                   </div>
                 </div>
 
-                <div className="text-[11px] text-slate-600 bg-slate-100 px-3.5 py-1.5 rounded-full font-medium mt-2">
+                <div className="text-[11px] text-slate-600 bg-slate-100 px-4 py-1.5 rounded-full font-medium">
                   This QR will expire in <span className="font-mono font-bold text-slate-900">{formatTime(timeLeft)}</span>
                 </div>
               </div>
@@ -582,7 +593,7 @@ export default function HostedPaymentView({
                 onClick={() => {
                   setShowCancelConfirm(false);
                   if (onClose) onClose();
-                  else window.location.href = '/user/dashboard';
+                  else router.push('/user/dashboard');
                 }}
                 className="w-full py-2 rounded-md bg-rose-600 hover:bg-rose-700 font-bold text-xs text-white shadow-xs transition active:scale-95"
               >

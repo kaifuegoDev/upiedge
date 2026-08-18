@@ -136,13 +136,13 @@ export default function Header({
 
               {/* Logout */}
               <div className="border-t border-slate-100 pt-1">
-                <a
+                <Link
                   href="/login"
                   className="w-full flex items-center gap-2.5 px-3.5 py-2 text-rose-600 hover:bg-rose-50 font-medium transition text-left"
                 >
                   <LogOut className="w-3.5 h-3.5 text-rose-500" />
                   <span>Log Out</span>
-                </a>
+                </Link>
               </div>
             </div>
           )}

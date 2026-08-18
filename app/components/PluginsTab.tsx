@@ -1,9 +1,9 @@
 import React from 'react';
 
-export default function ApiDocsTab() {
+export default function PluginsTab() {
   return (
     <div className="min-h-[400px]">
-      {/* Blank Docs page */}
+      {/* Blank Plugins page */}
     </div>
   );
 }

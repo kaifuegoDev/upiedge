@@ -381,69 +381,114 @@ echo $response;
               Quick start code snippets for dynamic QR generation and webhook handling.
             </p>
           </div>
-
-          {/* Language Selector */}
-          <div className="flex items-center gap-1 p-1 rounded-lg bg-slate-100 border border-slate-200 shadow-xs">
-            {[
-              { id: 'curl', label: 'cURL' },
-              { id: 'nodejs', label: 'Node.js' },
-              { id: 'python', label: 'Python' },
-              { id: 'php', label: 'PHP' },
-            ].map((lang) => (
-              <button
-                key={lang.id}
-                onClick={() => setSelectedLang(lang.id as any)}
-                className={`px-3 py-1 rounded-md text-xs font-bold transition ${
-                  selectedLang === lang.id
-                    ? 'bg-white text-slate-900 shadow-xs border border-slate-200/80'
-                    : 'text-slate-600 hover:text-slate-900'
-                }`}
-              >
-                {lang.label}
-              </button>
-            ))}
-          </div>
         </div>
 
         {/* Endpoint 1: Create Order */}
-        <div className="p-5 rounded-lg bg-white border border-slate-200 shadow-xs space-y-4">
-          <div className="flex items-center justify-between pb-3 border-b border-slate-100">
-            <div className="flex items-center gap-3">
-              <span className="px-2 py-1 rounded-md bg-blue-50 text-blue-700 font-mono font-bold text-xs border border-blue-200">
+        <div className="space-y-3">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2.5">
+              <span className="px-2 py-0.5 rounded bg-blue-50 text-blue-700 font-mono font-bold text-xs border border-blue-200">
                 POST
               </span>
               <span className="font-mono text-sm text-slate-900 font-bold">/api/v1/order/create</span>
             </div>
-            <span className="text-xs text-slate-500">Dynamic QR & Intent</span>
+            <span className="text-xs text-slate-500">Dynamic QR & UPI Intent</span>
           </div>
 
-          <p className="text-xs text-slate-600">
-            Creates a dynamic UPI payment session. Returns deep links for PhonePe, Google Pay, Paytm, and raw QR string.
-          </p>
+          {/* macOS Terminal Code Snippet Box */}
+          <div className="rounded-xl border border-slate-800 bg-[#0f172a] shadow-xl overflow-hidden text-white">
+            {/* Terminal Header */}
+            <div className="px-4 py-3 bg-[#1e293b] border-b border-slate-800 flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <div className="w-3 h-3 rounded-full bg-rose-500/80" />
+                <div className="w-3 h-3 rounded-full bg-amber-500/80" />
+                <div className="w-3 h-3 rounded-full bg-emerald-500/80" />
+                <span className="text-xs font-mono text-slate-400 ml-2">create-payment-order</span>
+              </div>
 
-          {/* Code Snippet Box */}
-          <div className="relative rounded-lg bg-slate-900 border border-slate-800 overflow-hidden shadow-xs">
-            <div className="px-4 py-2 bg-slate-950 border-b border-slate-800 flex items-center justify-between">
-              <span className="text-[11px] font-mono text-slate-400">Request ({selectedLang})</span>
+              {/* Language Switcher */}
+              <div className="flex items-center gap-1 bg-slate-900 p-1 rounded-md text-xs font-mono">
+                {(['curl', 'nodejs', 'python', 'php'] as const).map((lang) => (
+                  <button
+                    key={lang}
+                    onClick={() => setSelectedLang(lang)}
+                    className={`px-2.5 py-1 rounded transition uppercase ${
+                      selectedLang === lang 
+                        ? 'bg-blue-600 text-white font-bold shadow-xs' 
+                        : 'text-slate-400 hover:text-white'
+                    }`}
+                  >
+                    {lang === 'nodejs' ? 'NODE' : lang}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Code Body */}
+            <div className="p-5 font-mono text-xs text-slate-200 overflow-x-auto relative">
               <button
                 onClick={() => copyCode(codeSnippets.createOrder[selectedLang], 'create_order')}
-                className="flex items-center gap-1 text-[11px] text-slate-400 hover:text-white transition"
+                className="absolute top-4 right-4 px-3 py-1.5 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-[11px] font-sans flex items-center gap-1.5 transition"
               >
-                {copiedSection === 'create_order' ? <Check className="w-3 h-3 text-emerald-400" /> : <Copy className="w-3 h-3" />}
-                <span>{copiedSection === 'create_order' ? 'Copied' : 'Copy'}</span>
+                {copiedSection === 'create_order' ? (
+                  <>
+                    <Check className="w-3 h-3 text-emerald-400" />
+                    <span>Copied!</span>
+                  </>
+                ) : (
+                  <>
+                    <Copy className="w-3 h-3" />
+                    <span>Copy Code</span>
+                  </>
+                )}
               </button>
+              <pre className="leading-relaxed">
+                <code>{codeSnippets.createOrder[selectedLang]}</code>
+              </pre>
             </div>
-            <pre className="p-4 text-xs font-mono text-slate-200 overflow-x-auto">
-              {codeSnippets.createOrder[selectedLang]}
-            </pre>
+          </div>
+        </div>
+
+        {/* macOS Response JSON */}
+        <div className="space-y-3">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-bold text-slate-900">API Response Payload</span>
+            <span className="text-xs text-slate-500">HTTP 200 OK</span>
           </div>
 
-          {/* Response JSON */}
-          <div className="relative rounded-lg bg-slate-900 border border-slate-800 overflow-hidden shadow-xs">
-            <div className="px-4 py-2 bg-slate-950 border-b border-slate-800 flex items-center justify-between">
-              <span className="text-[11px] font-mono text-emerald-400">Response (JSON)</span>
+          <div className="rounded-xl border border-slate-800 bg-[#0f172a] shadow-xl overflow-hidden text-white">
+            <div className="px-4 py-3 bg-[#1e293b] border-b border-slate-800 flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <div className="w-3 h-3 rounded-full bg-rose-500/80" />
+                <div className="w-3 h-3 rounded-full bg-amber-500/80" />
+                <div className="w-3 h-3 rounded-full bg-emerald-500/80" />
+                <span className="text-xs font-mono text-emerald-400 ml-2">api-response.json</span>
+              </div>
+              <button
+                onClick={() => copyCode(`{
+  "status": true,
+  "message": "Order created successfully",
+  "data": {
+    "order_id": "ORD_100293",
+    "amount": 499.00,
+    "currency": "INR",
+    "upi_vpa": "upiedge.store@okhdfcbank",
+    "upi_intent": "upi://pay?pa=upiedge.store@okhdfcbank&pn=UPIEdgeStore&am=499.00&cu=INR&tr=ORD_100293&tn=Pro%20Upgrade",
+    "apps": {
+      "gpay": "tez://upi/pay?pa=upiedge.store@okhdfcbank...",
+      "phonepe": "phonepe://pay?pa=upiedge.store@okhdfcbank...",
+      "paytm": "paytmmp://pay?pa=upiedge.store@okhdfcbank..."
+    },
+    "expires_in_seconds": 900
+  }
+}`, 'resp_order')}
+                className="px-3 py-1.5 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-[11px] font-sans flex items-center gap-1.5 transition"
+              >
+                {copiedSection === 'resp_order' ? <Check className="w-3 h-3 text-emerald-400" /> : <Copy className="w-3 h-3" />}
+                <span>{copiedSection === 'resp_order' ? 'Copied' : 'Copy Response'}</span>
+              </button>
             </div>
-            <pre className="p-4 text-xs font-mono text-slate-300 overflow-x-auto">{`{
+            <pre className="p-5 text-xs font-mono text-slate-200 overflow-x-auto leading-relaxed">{`{
   "status": true,
   "message": "Order created successfully",
   "data": {
@@ -463,27 +508,44 @@ echo $response;
           </div>
         </div>
 
-        {/* Endpoint 2: Webhook Callback */}
-        <div className="p-5 rounded-lg bg-white border border-slate-200 shadow-xs space-y-4">
-          <div className="flex items-center justify-between pb-3 border-b border-slate-100">
-            <div className="flex items-center gap-3">
-              <span className="px-2 py-1 rounded-md bg-indigo-50 text-indigo-700 font-mono font-bold text-xs border border-indigo-200">
+        {/* Endpoint 2: Webhook Callback Payload */}
+        <div className="space-y-3">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2.5">
+              <span className="px-2 py-0.5 rounded bg-indigo-50 text-indigo-700 font-mono font-bold text-xs border border-indigo-200">
                 WEBHOOK
               </span>
               <span className="font-mono text-sm text-slate-900 font-bold">payment.success Callback Payload</span>
             </div>
-            <span className="text-xs text-slate-500">Server Event</span>
+            <span className="text-xs text-slate-500">Automated Server Event</span>
           </div>
 
-          <p className="text-xs text-slate-600">
-            When customer payment completes, UPIEdge dispatches this HTTP POST to your webhook URL:
-          </p>
-
-          <div className="relative rounded-lg bg-slate-900 border border-slate-800 overflow-hidden shadow-xs">
-            <div className="px-4 py-2 bg-slate-950 border-b border-slate-800 flex items-center justify-between">
-              <span className="text-[11px] font-mono text-indigo-300">Payload sent to your server</span>
+          <div className="rounded-xl border border-slate-800 bg-[#0f172a] shadow-xl overflow-hidden text-white">
+            <div className="px-4 py-3 bg-[#1e293b] border-b border-slate-800 flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <div className="w-3 h-3 rounded-full bg-rose-500/80" />
+                <div className="w-3 h-3 rounded-full bg-amber-500/80" />
+                <div className="w-3 h-3 rounded-full bg-emerald-500/80" />
+                <span className="text-xs font-mono text-indigo-300 ml-2">webhook-callback.json</span>
+              </div>
+              <button
+                onClick={() => copyCode(`{
+  "event": "payment.success",
+  "order_id": "ORD_100293",
+  "amount": 499.00,
+  "currency": "INR",
+  "utr": "421884920184",
+  "customer_upi": "rahul.verma@oksbi",
+  "status": "SUCCESS",
+  "timestamp": "2025-02-18T01:45:20Z"
+}`, 'resp_webhook')}
+                className="px-3 py-1.5 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-[11px] font-sans flex items-center gap-1.5 transition"
+              >
+                {copiedSection === 'resp_webhook' ? <Check className="w-3 h-3 text-emerald-400" /> : <Copy className="w-3 h-3" />}
+                <span>{copiedSection === 'resp_webhook' ? 'Copied' : 'Copy Payload'}</span>
+              </button>
             </div>
-            <pre className="p-4 text-xs font-mono text-slate-300 overflow-x-auto">{`{
+            <pre className="p-5 text-xs font-mono text-slate-200 overflow-x-auto leading-relaxed">{`{
   "event": "payment.success",
   "order_id": "ORD_100293",
   "amount": 499.00,
