@@ -95,7 +95,7 @@ export default function Sidebar({
 
       {/* Main Sidebar (Desktop Sticky + Mobile Drawer) */}
       <aside 
-        className={`w-76 sm:w-[300px] bg-white border-r border-slate-200 flex flex-col h-screen fixed lg:sticky top-0 left-0 z-50 shrink-0 select-none shadow-xl lg:shadow-none transition-transform duration-300 ease-in-out ${
+        className={`w-64 sm:w-[255px] bg-white border-r border-slate-200 flex flex-col h-screen fixed lg:sticky top-0 left-0 z-50 shrink-0 select-none shadow-xl lg:shadow-none transition-transform duration-300 ease-in-out ${
           isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
         }`}
       >
