@@ -74,8 +74,8 @@ export default function MultiMerchantTab() {
 
             <div className="space-y-1 max-w-sm mx-auto">
               <h3 className="text-sm font-bold text-slate-800">No merchant connected</h3>
-              <p className="text-xs text-slate-500 leading-relaxed">
-                You haven't connected any merchant account yet. Link your Paytm, BharatPe, Google Pay, or BHIM merchant account to enable multi-account UPI routing.
+              <p className="text-xs text-slate-500">
+                Connect your merchant accounts to enable multi-account UPI routing.
               </p>
             </div>
 
@@ -85,7 +85,7 @@ export default function MultiMerchantTab() {
                 className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold shadow-xs transition active:scale-95"
               >
                 <Plus className="w-3.5 h-3.5" />
-                <span>Connect First Merchant</span>
+                <span>Connect Merchant</span>
               </Link>
             </div>
           </div>
