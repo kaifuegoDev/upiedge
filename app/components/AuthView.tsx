@@ -46,8 +46,8 @@ export default function AuthView({
   return (
     <div className="min-h-screen bg-slate-50/60 flex flex-col justify-center items-center font-sans text-slate-900 px-4 py-12 selection:bg-slate-900 selection:text-white">
       {/* Brand Header */}
-      <div className="mb-8 text-center">
-        <Link href="/" className="inline-flex items-center gap-2.5 mb-4 group">
+      <div className="mb-6 text-center">
+        <Link href="/" className="inline-flex items-center gap-2.5 group">
           <div className="w-10 h-10 rounded-xl bg-slate-900 flex items-center justify-center text-white shadow-sm">
             <Layers className="w-5 h-5" />
           </div>
@@ -55,9 +55,6 @@ export default function AuthView({
             UPIEdge
           </span>
         </Link>
-        <h1 className="text-xl font-bold text-slate-900">
-          {mode === 'login' ? 'Sign in to your account' : 'Create your account'}
-        </h1>
       </div>
 
       {/* Main Card */}
