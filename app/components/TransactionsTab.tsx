@@ -192,8 +192,12 @@ export default function TransactionsTab({
               {filteredTransactions.length === 0 ? (
                 <tr>
                   <td colSpan={9} className="py-12 text-center text-slate-400">
-                    <p className="text-sm font-semibold text-slate-700">No transactions found</p>
-                    <p className="text-xs text-slate-400 mt-1">Try adjusting your filters or search query</p>
+                    <p className="text-sm font-semibold text-slate-700">
+                      {transactions.length === 0 ? 'No transactions yet' : 'No transactions found'}
+                    </p>
+                    <p className="text-xs text-slate-400 mt-1">
+                      {transactions.length === 0 ? 'Incoming UPI payments and orders will automatically appear here.' : 'Try adjusting your filters or search query'}
+                    </p>
                   </td>
                 </tr>
               ) : (
