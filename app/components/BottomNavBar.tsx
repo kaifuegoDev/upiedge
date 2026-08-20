@@ -45,7 +45,7 @@ export default function BottomNavBar() {
           <Link
             key={item.id}
             href={item.href}
-            className={`flex flex-col items-center justify-center py-1 px-3 rounded-lg transition-all active:scale-90 ${
+            className={`flex flex-col items-center justify-center py-1 px-3 rounded-lg ${
               isActive
                 ? 'text-slate-900 font-bold'
                 : 'text-slate-400 hover:text-slate-700 font-medium'
@@ -53,8 +53,8 @@ export default function BottomNavBar() {
           >
             <div className="relative flex items-center justify-center">
               <Icon 
-                className={`w-5 h-5 transition-transform duration-200 ${
-                  isActive ? 'text-slate-900 scale-110' : 'text-slate-400'
+                className={`w-5 h-5 ${
+                  isActive ? 'text-slate-900' : 'text-slate-400'
                 }`} 
               />
             </div>

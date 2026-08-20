@@ -150,7 +150,7 @@ export default function TransactionsTab({
               <button
                 key={tab.id}
                 onClick={() => setSelectedStatus(tab.id)}
-                className={`px-3 py-1.5 rounded-md text-xs font-semibold whitespace-nowrap transition-all flex items-center gap-2 ${
+                className={`px-3 py-1.5 rounded-md text-xs font-semibold whitespace-nowrap flex items-center gap-2 ${
                   isActive
                     ? 'bg-white text-slate-900 shadow-2xs border border-slate-200/80 font-bold'
                     : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
@@ -160,7 +160,7 @@ export default function TransactionsTab({
                   <span className={`w-1.5 h-1.5 rounded-full ${tab.dot}`} />
                 )}
                 <span>{tab.label}</span>
-                <span className={`text-[10px] font-mono px-1.5 py-0.5 rounded-full transition-colors ${
+                <span className={`text-[10px] font-mono px-1.5 py-0.5 rounded-full ${
                   isActive 
                     ? 'bg-slate-100 text-slate-900 font-bold' 
                     : 'bg-slate-200/70 text-slate-500'
