@@ -42,11 +42,8 @@ export default function MultiMerchantTab() {
         <div className="p-12 rounded-xl bg-white border border-slate-200/90 shadow-2xs text-center space-y-4">
           <div className="py-6 flex flex-col items-center justify-center space-y-3">
             {/* Merchant Store Empty Icon */}
-            <div className="w-14 h-14 rounded-2xl bg-slate-200/90 flex items-center justify-center mx-auto relative shadow-2xs">
-              <Store className="w-7 h-7 text-slate-600 stroke-[1.8]" />
-              <div className="w-4 h-4 rounded-full bg-slate-600 text-white flex items-center justify-center text-[9px] font-bold absolute -bottom-1 -right-1 shadow-xs">
-                ✕
-              </div>
+            <div className="w-14 h-14 rounded-2xl bg-slate-100 border border-slate-200/80 flex items-center justify-center mx-auto shadow-2xs">
+              <Store className="w-7 h-7 text-slate-500 stroke-[1.8]" />
             </div>
 
             <div className="space-y-1 max-w-sm mx-auto">
