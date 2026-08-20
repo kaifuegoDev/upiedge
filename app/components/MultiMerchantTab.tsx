@@ -29,10 +29,10 @@ export default function MultiMerchantTab() {
       {/* Header */}
       <div>
         <h1 className="text-xl font-bold text-slate-900">
-          Multi Merchant Accounts
+          Merchant Accounts
         </h1>
         <p className="text-xs text-slate-500 mt-0.5">
-          Manage and route dynamic UPI transactions across multiple connected merchant accounts.
+          Manage and route dynamic UPI transactions across connected merchant accounts.
         </p>
       </div>
 
@@ -41,7 +41,7 @@ export default function MultiMerchantTab() {
         /* Empty State */
         <div className="p-12 rounded-xl bg-white border border-slate-200/90 shadow-2xs text-center space-y-4">
           <div className="py-6 flex flex-col items-center justify-center space-y-3">
-            {/* Multi Merchant Empty Icon */}
+            {/* Merchant Empty Icon */}
             <div className="w-14 h-14 rounded-2xl bg-slate-100 border border-slate-200/80 flex items-center justify-center mx-auto shadow-2xs">
               <Building2 className="w-7 h-7 text-slate-500 stroke-[1.8]" />
             </div>
@@ -49,7 +49,7 @@ export default function MultiMerchantTab() {
             <div className="space-y-1 max-w-sm mx-auto">
               <h3 className="text-sm font-bold text-slate-800">No merchant connected</h3>
               <p className="text-xs text-slate-500">
-                Connect your merchant accounts to enable multi-account UPI routing.
+                Connect your merchant accounts to enable automated UPI routing.
               </p>
             </div>
 

@@ -139,9 +139,9 @@ export default function TransactionsTab({
       </div>
 
       {/* Filter & Search Bar */}
-      <div className="p-3 rounded-lg bg-white border border-slate-200/90 shadow-2xs flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3">
+      <div className="p-3 rounded-xl bg-white border border-slate-200/90 shadow-2xs flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3">
         {/* Status Segmented Control */}
-        <div className="flex items-center gap-1 bg-slate-100/80 p-1 rounded-md border border-slate-200/70 overflow-x-auto">
+        <div className="flex items-center gap-1 bg-slate-100/80 p-1 rounded-lg border border-slate-200/70 overflow-x-auto">
           {STATUS_TABS.map((tab) => {
             const count = tab.id === 'ALL' 
               ? transactions.length 
@@ -181,7 +181,7 @@ export default function TransactionsTab({
             placeholder="Search Order ID, UPI, UTR..."
             value={activeSearch}
             onChange={(e) => handleSearchChange(e.target.value)}
-            className="w-full bg-slate-50/80 border border-slate-200/90 rounded-md pl-8 pr-8 py-1.5 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:bg-white focus:border-slate-400 focus:ring-2 focus:ring-slate-900/5 transition"
+            className="w-full bg-slate-50/80 border border-slate-200/90 rounded-lg pl-8 pr-8 py-1.5 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:bg-white focus:border-slate-400 focus:ring-2 focus:ring-slate-900/5 transition"
           />
           {activeSearch && (
             <button 
@@ -195,7 +195,7 @@ export default function TransactionsTab({
       </div>
 
       {/* Transactions Table */}
-      <div className="rounded-lg bg-white border border-slate-200/90 overflow-hidden shadow-2xs">
+      <div className="rounded-xl bg-white border border-slate-200/90 overflow-hidden shadow-2xs">
         <div className="overflow-x-auto">
           <table className="w-full text-xs">
             <thead>
@@ -218,7 +218,7 @@ export default function TransactionsTab({
                   <td colSpan={10} className="py-16 text-center">
                     <div className="py-2 text-center space-y-3 flex flex-col items-center justify-center">
                       {/* Clipboard Empty Icon */}
-                      <div className="w-14 h-16 rounded-lg bg-slate-200/90 flex flex-col items-center justify-center mx-auto relative shadow-2xs pt-1">
+                      <div className="w-14 h-16 rounded-xl bg-slate-200/90 flex flex-col items-center justify-center mx-auto relative shadow-2xs pt-1">
                         <div className="w-6 h-2 bg-slate-400/90 rounded-full absolute -top-1" />
                         <div className="space-y-1.5 w-7">
                           <div className="h-1 bg-slate-400/80 rounded-full w-full" />
