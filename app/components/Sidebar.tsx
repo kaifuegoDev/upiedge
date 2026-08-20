@@ -130,11 +130,11 @@ export default function Sidebar({
         </div>
 
         {/* Navigation with Categories */}
-        <nav className="flex-1 px-4 py-4 space-y-4.5 overflow-y-auto">
+        <nav className="flex-1 px-4 py-5 space-y-5 overflow-y-auto">
           {NAVIGATION_GROUPS.map((group, groupIdx) => (
-            <div key={`group-${groupIdx}`} className="space-y-1">
+            <div key={`group-${groupIdx}`} className="space-y-1.5">
               {group.category && (
-                <div className="px-3.5 pb-1 text-xs font-semibold text-slate-700 tracking-tight">
+                <div className="px-3.5 pb-1 text-[13px] font-bold text-slate-800 tracking-tight">
                   {group.category}
                 </div>
               )}
@@ -148,10 +148,10 @@ export default function Sidebar({
                     key={item.id}
                     href={item.href}
                     onClick={() => onClose && onClose()}
-                    className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-lg text-sm transition-colors ${
+                    className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-lg text-[15px] transition-colors ${
                       isActive
-                        ? 'bg-slate-100 text-slate-900 font-semibold shadow-2xs'
-                        : 'text-slate-900 hover:text-black hover:bg-slate-50 font-medium'
+                        ? 'bg-slate-100 text-slate-900 font-bold shadow-2xs'
+                        : 'text-slate-800 hover:text-black hover:bg-slate-50 font-medium'
                     }`}
                   >
                     <div className="flex items-center gap-3.5">
