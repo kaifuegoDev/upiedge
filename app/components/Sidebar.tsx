@@ -149,7 +149,7 @@ export default function Sidebar({
                     key={item.id}
                     href={item.href}
                     onClick={() => onClose && onClose()}
-                    className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-lg text-sm ${
+                    className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-lg text-sm transition-colors ${
                       isActive
                         ? 'bg-slate-100 text-slate-900 font-semibold shadow-2xs'
                         : 'text-slate-900 hover:text-black hover:bg-slate-50 font-medium'
