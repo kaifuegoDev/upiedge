@@ -47,7 +47,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
         />
 
         {/* Dynamic Page Body with Responsive & Bottom-Nav Safe Padding */}
-        <main className="flex-1 px-4 sm:px-6 md:px-10 py-5 sm:py-7 md:py-9 pb-24 lg:pb-9 max-w-[1400px] w-full mx-auto">
+        <main className="flex-1 px-4 sm:px-6 md:px-8 py-5 sm:py-6 pb-24 lg:pb-8 w-full">
           {children}
         </main>
 

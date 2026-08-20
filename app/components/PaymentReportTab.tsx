@@ -57,7 +57,7 @@ export default function PaymentReportTab() {
   );
 
   return (
-    <div className="space-y-6 pb-16 max-w-5xl mx-auto">
+    <div className="space-y-6 pb-16 w-full">
       {/* Header */}
       <div>
         <h2 className="text-xl font-bold text-slate-900">Payment & Billing Report</h2>
