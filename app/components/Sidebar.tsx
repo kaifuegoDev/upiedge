@@ -70,7 +70,7 @@ const NAVIGATION_GROUPS: NavGroup[] = [
   {
     category: 'API & Docs',
     items: [
-      { id: 'api-webhooks', label: 'API Keys & Webhooks', href: '/user/api-webhooks', icon: SquareTerminal },
+      { id: 'api-webhooks', label: 'API Key & Webhook', href: '/user/api-webhooks', icon: SquareTerminal },
       { id: 'docs', label: 'Docs', href: '/user/docs', icon: FileCode },
     ]
   }
