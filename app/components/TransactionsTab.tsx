@@ -94,15 +94,16 @@ export default function TransactionsTab({
   };
 
   const handleExportCSV = () => {
-    const headers = ['Order ID', 'Amount (INR)', 'Status', 'UTR', 'Customer UPI', 'Customer Name', 'UPI Handle', 'Created At'];
-    const rows = filteredTransactions.map(t => [
+    const headers = ['#', 'Customer Phone', 'Client Txn ID', 'Amount', 'Convenience Fee', 'Total', 'Status', 'Webhook Status', 'Date'];
+    const rows = filteredTransactions.map((t, idx) => [
+      idx + 1,
+      t.customerPhone || 'N/A',
       t.orderId,
-      t.amount,
+      t.amount.toFixed(2),
+      '0.00',
+      t.amount.toFixed(2),
       t.status,
-      t.utr || 'N/A',
-      t.customerUpi || 'N/A',
-      t.customerName || 'N/A',
-      t.upiHandle,
+      t.webhookStatus,
       t.createdAt
     ]);
     const csvContent = 'data:text/csv;charset=utf-8,' + [headers.join(','), ...rows.map(e => e.join(','))].join('\n');
@@ -196,24 +197,25 @@ export default function TransactionsTab({
       {/* Transactions Table */}
       <div className="rounded-xl bg-white border border-slate-200/90 overflow-hidden shadow-2xs">
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs">
+          <table className="w-full text-xs">
             <thead>
-              <tr className="border-b border-slate-200 bg-slate-50 text-slate-500 font-semibold">
-                <th className="py-3.5 px-4">Order ID</th>
-                <th className="py-3.5 px-4">Customer & UPI</th>
-                <th className="py-3.5 px-4">Settled Handle</th>
-                <th className="py-3.5 px-4">Amount</th>
-                <th className="py-3.5 px-4">Bank UTR</th>
-                <th className="py-3.5 px-4">Payment Status</th>
-                <th className="py-3.5 px-4">Webhook</th>
-                <th className="py-3.5 px-4">Time</th>
-                <th className="py-3.5 px-4 text-right">Actions</th>
+              <tr className="bg-slate-50/50 text-slate-600 border-b border-slate-100 text-[11px] font-bold">
+                <th className="py-3 px-4 text-center">#</th>
+                <th className="py-3 px-4 text-center">Customer Phone</th>
+                <th className="py-3 px-4 text-center">Client Txn ID</th>
+                <th className="py-3 px-4 text-center">Amount</th>
+                <th className="py-3 px-4 text-center">Convenience Fee</th>
+                <th className="py-3 px-4 text-center">Total</th>
+                <th className="py-3 px-4 text-center">Status</th>
+                <th className="py-3 px-4 text-center">Webhook Status</th>
+                <th className="py-3 px-4 text-center">Date</th>
+                <th className="py-3 px-4 text-right">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
               {filteredTransactions.length === 0 ? (
                 <tr>
-                  <td colSpan={9} className="py-16 text-center">
+                  <td colSpan={10} className="py-16 text-center">
                     <div className="py-2 text-center space-y-3 flex flex-col items-center justify-center">
                       {/* Clipboard Empty Icon */}
                       <div className="w-14 h-16 rounded-xl bg-slate-200/90 flex flex-col items-center justify-center mx-auto relative shadow-2xs pt-1">
@@ -231,10 +233,12 @@ export default function TransactionsTab({
                   </td>
                 </tr>
               ) : (
-                filteredTransactions.map((txn) => (
-                  <tr key={txn.id} className="hover:bg-slate-50/80 transition">
-                    <td className="py-3.5 px-4 font-mono font-semibold text-slate-900">
-                      <div className="flex items-center gap-1.5">
+                filteredTransactions.map((txn, index) => (
+                  <tr key={txn.id} className="hover:bg-slate-50/50 transition">
+                    <td className="py-3.5 px-4 font-mono text-slate-400 text-center">{index + 1}</td>
+                    <td className="py-3.5 px-4 text-slate-700 text-center font-medium">{txn.customerPhone || '9876543210'}</td>
+                    <td className="py-3.5 px-4 font-mono font-medium text-slate-900 text-center">
+                      <div className="flex items-center justify-center gap-1.5">
                         <span>{txn.orderId}</span>
                         <button
                           onClick={() => copyToClipboard(txn.orderId, `order_${txn.id}`)}
@@ -245,41 +249,22 @@ export default function TransactionsTab({
                         </button>
                       </div>
                     </td>
-                    <td className="py-3.5 px-4">
-                      <div className="font-semibold text-slate-800">{txn.customerName || 'Direct Payer'}</div>
-                      <div className="text-[11px] text-slate-400 font-mono">{txn.customerUpi || 'Web QR Scan'}</div>
-                    </td>
-                    <td className="py-3.5 px-4 font-mono text-[11px] text-slate-500">
-                      {txn.upiHandle.split('@')[0]}@...
-                    </td>
-                    <td className="py-3.5 px-4">
-                      <span className="font-bold text-slate-900 text-sm">₹{txn.amount.toFixed(2)}</span>
-                    </td>
-                    <td className="py-3.5 px-4 font-mono">
-                      {txn.utr ? (
-                        <span className="text-emerald-700 font-semibold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
-                          {txn.utr}
-                        </span>
-                      ) : (
-                        <span className="text-slate-400 italic text-[11px]">Unmatched</span>
-                      )}
-                    </td>
-                    <td className="py-3.5 px-4">
-                      <span className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-bold border ${
+                    <td className="py-3.5 px-4 font-mono font-bold text-slate-900 text-center">₹{txn.amount.toFixed(2)}</td>
+                    <td className="py-3.5 px-4 font-mono text-slate-500 text-center">₹0.00</td>
+                    <td className="py-3.5 px-4 font-mono font-bold text-slate-900 text-center">₹{txn.amount.toFixed(2)}</td>
+                    <td className="py-3.5 px-4 text-center">
+                      <span className={`inline-block px-2 py-0.5 rounded text-[10px] font-bold border ${
                         txn.status === 'SUCCESS'
                           ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
                           : txn.status === 'PENDING'
                           ? 'bg-amber-50 text-amber-700 border-amber-200'
                           : 'bg-rose-50 text-rose-700 border-rose-200'
                       }`}>
-                        <span className={`w-1.5 h-1.5 rounded-full ${
-                          txn.status === 'SUCCESS' ? 'bg-emerald-500' : txn.status === 'PENDING' ? 'bg-amber-500' : 'bg-rose-500'
-                        }`} />
                         {txn.status}
                       </span>
                     </td>
-                    <td className="py-3.5 px-4">
-                      <span className={`text-[10px] px-2 py-0.5 rounded font-mono font-semibold border ${
+                    <td className="py-3.5 px-4 text-center">
+                      <span className={`inline-block px-2 py-0.5 rounded text-[10px] font-bold border ${
                         txn.webhookStatus === 'DELIVERED'
                           ? 'bg-blue-50 text-blue-700 border-blue-200'
                           : 'bg-slate-100 text-slate-600 border-slate-200'
@@ -287,9 +272,7 @@ export default function TransactionsTab({
                         {txn.webhookStatus}
                       </span>
                     </td>
-                    <td className="py-3.5 px-4 text-slate-500 font-mono whitespace-nowrap">
-                      {txn.createdAt}
-                    </td>
+                    <td className="py-3.5 px-4 text-slate-500 text-center font-medium whitespace-nowrap">{txn.createdAt}</td>
                     <td className="py-3.5 px-4 text-right">
                       <div className="flex items-center justify-end gap-1.5">
                         {txn.status === 'PENDING' && (
