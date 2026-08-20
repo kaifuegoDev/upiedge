@@ -226,7 +226,7 @@ export default function TransactionsTab({
                           ✕
                         </div>
                       </div>
-                      <p className="text-xs text-slate-600 font-medium">No transactions today</p>
+                      <p className="text-xs text-slate-600 font-medium">No transactions</p>
                     </div>
                   </td>
                 </tr>
