@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import UpiDevicesTab from '../../components/UpiDevicesTab';
+import ConnectMerchantTab from '../../components/ConnectMerchantTab';
 import { INITIAL_DEVICES } from '../../data/mockData';
 
 export default function UserConnectMerchantPage() {
@@ -9,7 +9,7 @@ export default function UserConnectMerchantPage() {
   const [listenerConnected, setListenerConnected] = useState<boolean>(true);
 
   return (
-    <UpiDevicesTab
+    <ConnectMerchantTab
       devices={devices}
       setDevices={setDevices}
       listenerConnected={listenerConnected}

@@ -26,7 +26,7 @@ import paytmImg from '../assets/paytm_business.png';
 import bhimImg from '../assets/bhim (1).jpg';
 import fampayImg from '../assets/images.png';
 
-interface UpiDevicesTabProps {
+interface ConnectMerchantTabProps {
   devices?: UpiDevice[];
   setDevices?: React.Dispatch<React.SetStateAction<UpiDevice[]>>;
   listenerConnected?: boolean;
@@ -114,7 +114,7 @@ const SPECIAL_MERCHANTS: MerchantProvider[] = [
 const COMMON_HANDLES = ['@paytm', '@ybl', '@okhdfcbank', '@upi'];
 const FAMPAY_HANDLES = ['@fam', '@yesfam'];
 
-export default function UpiDevicesTab({}: UpiDevicesTabProps) {
+export default function ConnectMerchantTab({}: ConnectMerchantTabProps) {
   const [inputVpa, setInputVpa] = useState('');
   
   // Selected merchant provider for Connection Form Modal
