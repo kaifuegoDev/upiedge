@@ -211,10 +211,10 @@ echo $order->intent_url;`
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center gap-3 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-            <div className="w-10 h-10 rounded-xl bg-slate-900 flex items-center justify-center shadow-sm text-white">
-              <Layers className="w-5 h-5" />
+            <div className="w-8 h-8 rounded-lg bg-slate-900 flex items-center justify-center shadow-xs text-white">
+              <Layers className="w-4 h-4" />
             </div>
-            <span className="font-bold text-xl tracking-tight text-slate-900">
+            <span className="font-bold text-lg tracking-tight text-slate-900">
               UPIEdge
             </span>
           </div>
@@ -834,10 +834,10 @@ echo $order->intent_url;`
       <footer className="bg-white border-t border-slate-200 py-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-slate-900 flex items-center justify-center text-white text-xs font-bold shadow-xs">
-              <Layers className="w-4 h-4" />
+            <div className="w-6 h-6 rounded-md bg-slate-900 flex items-center justify-center text-white text-[10px] font-bold">
+              <Layers className="w-3.5 h-3.5" />
             </div>
-            <span className="font-bold text-slate-900 text-sm">UPIEdge Gateway</span>
+            <span className="font-bold text-slate-900">UPIEdge Gateway</span>
             <span>•</span>
             <span>© 2026-27 UPIEdge. All rights reserved.</span>
           </div>
