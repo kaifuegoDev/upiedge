@@ -128,36 +128,42 @@ export default function MultiMerchantTab() {
         </div>
       )}
 
-      {/* Feature & Benefits Banner */}
+      {/* Feature & Benefits Highlights */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
-        <div className="p-4 rounded-xl bg-white border border-slate-200/90 shadow-2xs space-y-1.5">
-          <div className="flex items-center gap-2 text-slate-900 font-bold text-xs">
-            <Layers className="w-4 h-4 text-blue-600" />
-            <span>Smart Auto-Rotation</span>
+        <div className="p-4.5 rounded-xl bg-white border border-slate-200/90 shadow-2xs space-y-2.5">
+          <div className="w-8 h-8 rounded-lg bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600">
+            <Layers className="w-4 h-4" />
           </div>
-          <p className="text-[11px] text-slate-500 leading-relaxed">
-            Distribute daily collection limits seamlessly across multiple UPI VPAs to prevent daily cap triggers.
-          </p>
+          <div>
+            <h4 className="text-xs font-bold text-slate-900">Smart Limit Balancing</h4>
+            <p className="text-[11px] text-slate-500 mt-1 leading-relaxed">
+              Auto-split transactions across multiple VPAs to easily bypass single-bank daily collection caps.
+            </p>
+          </div>
         </div>
 
-        <div className="p-4 rounded-xl bg-white border border-slate-200/90 shadow-2xs space-y-1.5">
-          <div className="flex items-center gap-2 text-slate-900 font-bold text-xs">
-            <Zap className="w-4 h-4 text-emerald-600" />
-            <span>Instant Zero MDR Settlement</span>
+        <div className="p-4.5 rounded-xl bg-white border border-slate-200/90 shadow-2xs space-y-2.5">
+          <div className="w-8 h-8 rounded-lg bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-600">
+            <ShieldCheck className="w-4 h-4" />
           </div>
-          <p className="text-[11px] text-slate-500 leading-relaxed">
-            Every transaction is settled direct-to-bank in real-time with 0% gateway cuts.
-          </p>
+          <div>
+            <h4 className="text-xs font-bold text-slate-900">Zero-Downtime Failover</h4>
+            <p className="text-[11px] text-slate-500 mt-1 leading-relaxed">
+              If any bank UPI server is down, traffic automatically switches to active backup handles.
+            </p>
+          </div>
         </div>
 
-        <div className="p-4 rounded-xl bg-white border border-slate-200/90 shadow-2xs space-y-1.5">
-          <div className="flex items-center gap-2 text-slate-900 font-bold text-xs">
-            <ShieldCheck className="w-4 h-4 text-purple-600" />
-            <span>Failover Protection</span>
+        <div className="p-4.5 rounded-xl bg-white border border-slate-200/90 shadow-2xs space-y-2.5">
+          <div className="w-8 h-8 rounded-lg bg-purple-50 border border-purple-100 flex items-center justify-center text-purple-600">
+            <Building2 className="w-4 h-4" />
           </div>
-          <p className="text-[11px] text-slate-500 leading-relaxed">
-            If one merchant handle encounters bank maintenance, incoming traffic instantly fails over to standby handles.
-          </p>
+          <div>
+            <h4 className="text-xs font-bold text-slate-900">Multi-Bank Settlement</h4>
+            <p className="text-[11px] text-slate-500 mt-1 leading-relaxed">
+              Route payments directly into different business accounts with instant verification and 0% MDR.
+            </p>
+          </div>
         </div>
       </div>
     </div>
