@@ -36,23 +36,13 @@ export default function MultiMerchantTab() {
   return (
     <div className="space-y-6 pb-16 font-sans">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        <div>
-          <h1 className="text-xl font-bold text-slate-900 flex items-center gap-2">
-            <span>Multi Merchant Accounts</span>
-          </h1>
-          <p className="text-xs text-slate-500 mt-0.5">
-            Manage and route dynamic UPI transactions across multiple connected merchant accounts.
-          </p>
-        </div>
-
-        <Link
-          href="/user/connect-merchant"
-          className="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold shadow-xs transition active:scale-95 shrink-0"
-        >
-          <Plus className="w-3.5 h-3.5" />
-          <span>Connect Merchant</span>
-        </Link>
+      <div>
+        <h1 className="text-xl font-bold text-slate-900">
+          Multi Merchant Accounts
+        </h1>
+        <p className="text-xs text-slate-500 mt-0.5">
+          Manage and route dynamic UPI transactions across multiple connected merchant accounts.
+        </p>
       </div>
 
       {/* Main Content Area */}
