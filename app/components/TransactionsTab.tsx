@@ -214,20 +214,19 @@ export default function TransactionsTab({
               {filteredTransactions.length === 0 ? (
                 <tr>
                   <td colSpan={9} className="py-16 text-center">
-                    <div className="max-w-sm mx-auto flex flex-col items-center justify-center space-y-3">
-                      <div className="w-12 h-12 rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-center text-slate-400 shadow-2xs">
-                        <Inbox className="w-6 h-6 stroke-[1.5]" />
+                    <div className="py-2 text-center space-y-3 flex flex-col items-center justify-center">
+                      {/* Clipboard Empty Icon */}
+                      <div className="w-14 h-16 rounded-xl bg-slate-200/90 flex flex-col items-center justify-center mx-auto relative shadow-2xs pt-1">
+                        <div className="w-6 h-2 bg-slate-400/90 rounded-full absolute -top-1" />
+                        <div className="space-y-1.5 w-7">
+                          <div className="h-1 bg-slate-400/80 rounded-full w-full" />
+                          <div className="h-1 bg-slate-400/80 rounded-full w-4" />
+                        </div>
+                        <div className="w-4 h-4 rounded-full bg-slate-600 text-white flex items-center justify-center text-[9px] font-bold absolute -bottom-1 -right-1 shadow-xs">
+                          ✕
+                        </div>
                       </div>
-                      <div className="space-y-1">
-                        <p className="text-sm font-bold text-slate-800">
-                          {transactions.length === 0 ? 'No transactions yet' : 'No matching transactions'}
-                        </p>
-                        <p className="text-xs text-slate-400 leading-relaxed">
-                          {transactions.length === 0
-                            ? 'When customers initiate UPI payments or scan your QR code, live transactions will appear here.'
-                            : 'No records matched your search filters. Try clearing your search query or switching status tabs.'}
-                        </p>
-                      </div>
+                      <p className="text-xs text-slate-600 font-medium">No transactions today</p>
                     </div>
                   </td>
                 </tr>
