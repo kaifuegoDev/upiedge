@@ -201,11 +201,6 @@ export default function AuthView({
           )}
         </div>
       </div>
-
-      {/* Footer */}
-      <p className="text-[11px] text-slate-400 mt-6 text-center">
-        Secured with 256-bit SSL encryption • Direct UPI settlement
-      </p>
     </div>
   );
 }
