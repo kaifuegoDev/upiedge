@@ -112,6 +112,7 @@ const SPECIAL_MERCHANTS: MerchantProvider[] = [
 ];
 
 const COMMON_HANDLES = ['@paytm', '@ybl', '@okhdfcbank', '@upi'];
+const FAMPAY_HANDLES = ['@fam', '@yesfam'];
 
 export default function UpiDevicesTab({}: UpiDevicesTabProps) {
   const [inputVpa, setInputVpa] = useState('');
@@ -133,6 +134,7 @@ export default function UpiDevicesTab({}: UpiDevicesTabProps) {
     setSelectedProvider(provider);
     setVideoModalProvider(null);
     setOtpSent(false);
+    setInputVpa('');
     setProviderMobile('');
     setProviderEmail('');
     setProviderOtp('');
@@ -156,7 +158,7 @@ export default function UpiDevicesTab({}: UpiDevicesTabProps) {
     e.preventDefault();
     const cleanVpa = inputVpa.trim().toLowerCase();
     if (!cleanVpa || !cleanVpa.includes('@')) {
-      alert('Please enter a valid UPI ID (e.g. yourname@upi)');
+      alert(`Please enter a valid ${selectedProvider?.name || 'UPI'} ID (e.g. ${selectedProvider?.placeholderVpa || 'username@fam'})`);
       return;
     }
     if (!providerEmail || !providerEmail.includes('@')) {
@@ -167,26 +169,20 @@ export default function UpiDevicesTab({}: UpiDevicesTabProps) {
     setIsLinking(true);
     setTimeout(() => {
       setIsLinking(false);
+      const provName = selectedProvider?.name || 'UPI';
       setSelectedProvider(null);
       setInputVpa('');
       setProviderEmail('');
-      setProviderConnectedMsg(`UPI ID (${cleanVpa}) and email (${providerEmail}) connected successfully!`);
+      setProviderConnectedMsg(`${provName} ID (${cleanVpa}) and email (${providerEmail}) connected successfully!`);
       setTimeout(() => setProviderConnectedMsg(null), 4000);
     }, 600);
   };
 
   const handleSendOtp = (e: React.FormEvent) => {
     e.preventDefault();
-    if (selectedProvider?.id === 'fampay_merchant') {
-      if (!providerEmail || !providerEmail.includes('@')) {
-        alert('Please enter a valid email address linked with FamPay');
-        return;
-      }
-    } else {
-      if (!providerMobile || providerMobile.length < 10) {
-        alert('Please enter a valid 10-digit mobile number');
-        return;
-      }
+    if (!providerMobile || providerMobile.length < 10) {
+      alert('Please enter a valid 10-digit mobile number');
+      return;
     }
     setIsLinking(true);
     setTimeout(() => {
@@ -467,6 +463,8 @@ export default function UpiDevicesTab({}: UpiDevicesTabProps) {
                       ? 'Coming Soon' 
                       : selectedProvider.id === 'bhim_upi' 
                       ? 'Direct Bank UPI Handle' 
+                      : selectedProvider.id === 'fampay_merchant'
+                      ? 'Direct FamPay UPI & Email'
                       : `${selectedProvider.category} • 24/7 Cloud Sync`}
                   </p>
                 </div>
@@ -508,22 +506,25 @@ export default function UpiDevicesTab({}: UpiDevicesTabProps) {
                 <div className="p-3 rounded-lg bg-slate-50 border border-slate-200 text-xs text-slate-700 space-y-1">
                   <p className="font-bold flex items-center gap-1.5 text-slate-900">
                     <ShieldCheck className="w-4 h-4 text-emerald-600" />
-                    <span>Direct Bank Settlement</span>
+                    <span>{selectedProvider.id === 'fampay_merchant' ? 'Direct FamPay Settlement' : 'Direct Bank Settlement'}</span>
                   </p>
                   <p className="text-[11px] text-slate-500">
                     {selectedProvider.id === 'bhim_upi'
                       ? 'Enter your merchant UPI VPA handle. Payments will credit directly to your bank account with 0% gateway fees.'
+                      : selectedProvider.id === 'fampay_merchant'
+                      ? 'Enter your FamPay UPI ID (@fam) and registered email to connect your wallet for instant payments.'
                       : 'Transactions settle directly into your bank with instant UTR reconciliation without requiring your phone to be on.'}
                   </p>
                 </div>
 
-                {/* CASE A: UPI PROVIDER -> DIRECT UPI ID & EMAIL ENTRY FORM */}
-                {selectedProvider.id === 'bhim_upi' ? (
+                {/* CASE A: UPI & FAMPAY -> DIRECT UPI ID & EMAIL ENTRY FORM */}
+                {selectedProvider.id === 'bhim_upi' || selectedProvider.id === 'fampay_merchant' ? (
                   <form onSubmit={handleConnectDirectUpi} className="space-y-4">
                     {/* Field 1: Merchant UPI ID */}
                     <div className="space-y-1.5">
                       <label className="block text-xs font-semibold text-slate-700">
-                        Merchant UPI ID <span className="text-rose-500">*</span>
+                        {selectedProvider.id === 'fampay_merchant' ? 'FamPay UPI ID / VPA' : 'Merchant UPI ID'}{' '}
+                        <span className="text-rose-500">*</span>
                       </label>
 
                       <div className="relative">
@@ -535,7 +536,7 @@ export default function UpiDevicesTab({}: UpiDevicesTabProps) {
                           required
                           value={inputVpa}
                           onChange={(e) => setInputVpa(e.target.value)}
-                          placeholder="example@upi"
+                          placeholder={selectedProvider.placeholderVpa || 'username@fam'}
                           className="w-full bg-white border border-slate-200 rounded-md pl-9 pr-3.5 py-2 text-xs font-mono font-bold text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 transition shadow-2xs"
                         />
                       </div>
@@ -543,7 +544,7 @@ export default function UpiDevicesTab({}: UpiDevicesTabProps) {
                       {/* Quick Suffix Presets */}
                       <div className="flex flex-wrap items-center gap-1.5 pt-0.5">
                         <span className="text-[11px] text-slate-400 font-medium mr-1">Presets:</span>
-                        {COMMON_HANDLES.map((suffix) => (
+                        {(selectedProvider.id === 'fampay_merchant' ? FAMPAY_HANDLES : COMMON_HANDLES).map((suffix) => (
                           <button
                             key={suffix}
                             type="button"
@@ -559,7 +560,8 @@ export default function UpiDevicesTab({}: UpiDevicesTabProps) {
                     {/* Field 2: Bank / Notification Email */}
                     <div className="space-y-1.5">
                       <label className="block text-xs font-semibold text-slate-700">
-                        Bank / Notification Email <span className="text-rose-500">*</span>
+                        {selectedProvider.id === 'fampay_merchant' ? 'Registered FamPay Email' : 'Bank / Notification Email'}{' '}
+                        <span className="text-rose-500">*</span>
                       </label>
                       <div className="relative">
                         <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
@@ -570,12 +572,14 @@ export default function UpiDevicesTab({}: UpiDevicesTabProps) {
                           required
                           value={providerEmail}
                           onChange={(e) => setProviderEmail(e.target.value)}
-                          placeholder="e.g. merchant@gmail.com"
+                          placeholder={selectedProvider.id === 'fampay_merchant' ? 'e.g. name@gmail.com' : 'e.g. merchant@gmail.com'}
                           className="w-full bg-white border border-slate-200 rounded-md pl-9 pr-3.5 py-2 text-xs font-mono font-bold text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 transition shadow-2xs"
                         />
                       </div>
                       <p className="text-[11px] text-slate-400">
-                        Email address for instant payment settlement receipts and webhook notifications.
+                        {selectedProvider.id === 'fampay_merchant'
+                          ? 'Email address linked with your FamPay wallet for instant payment webhook sync.'
+                          : 'Email address for instant payment settlement receipts and webhook notifications.'}
                       </p>
                     </div>
 
@@ -609,12 +613,12 @@ export default function UpiDevicesTab({}: UpiDevicesTabProps) {
                           {isLinking ? (
                             <>
                               <RefreshCw className="w-3.5 h-3.5 animate-spin" />
-                              <span>Connecting UPI Gateway...</span>
+                              <span>Connecting...</span>
                             </>
                           ) : (
                             <>
                               <Plus className="w-3.5 h-3.5" />
-                              <span>Connect UPI ID</span>
+                              <span>Connect</span>
                             </>
                           )}
                         </button>
@@ -622,48 +626,29 @@ export default function UpiDevicesTab({}: UpiDevicesTabProps) {
                     </div>
                   </form>
                 ) : (
-                  /* CASE B: CLOUD PROVIDERS -> MOBILE / EMAIL + OTP FLOW */
+                  /* CASE B: CLOUD PROVIDERS -> MOBILE / OTP FLOW */
                   !otpSent ? (
                     <form onSubmit={handleSendOtp} className="space-y-4">
                       <div className="space-y-1.5">
                         <label className="block text-xs font-semibold text-slate-700">
-                          {selectedProvider.id === 'fampay_merchant'
-                            ? 'Registered Email linked with FamPay'
-                            : 'Registered Merchant Mobile Number'}
+                          Registered Merchant Mobile Number
                         </label>
                         <div className="relative">
                           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
-                            {selectedProvider.id === 'fampay_merchant' ? (
-                              <Mail className="w-4 h-4" />
-                            ) : (
-                              <Smartphone className="w-4 h-4" />
-                            )}
+                            <Smartphone className="w-4 h-4" />
                           </div>
-                          {selectedProvider.id === 'fampay_merchant' ? (
-                            <input
-                              type="email"
-                              required
-                              value={providerEmail}
-                              onChange={(e) => setProviderEmail(e.target.value)}
-                              placeholder="e.g. name@gmail.com"
-                              className="w-full bg-white border border-slate-200 rounded-md pl-9 pr-3 py-2 text-xs font-mono font-bold text-slate-900 focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900"
-                            />
-                          ) : (
-                            <input
-                              type="tel"
-                              required
-                              maxLength={10}
-                              value={providerMobile}
-                              onChange={(e) => setProviderMobile(e.target.value.replace(/\D/g, ''))}
-                              placeholder="e.g. 9876543210"
-                              className="w-full bg-white border border-slate-200 rounded-md pl-9 pr-3 py-2 text-xs font-mono font-bold text-slate-900 focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900"
-                            />
-                          )}
+                          <input
+                            type="tel"
+                            required
+                            maxLength={10}
+                            value={providerMobile}
+                            onChange={(e) => setProviderMobile(e.target.value.replace(/\D/g, ''))}
+                            placeholder="e.g. 9876543210"
+                            className="w-full bg-white border border-slate-200 rounded-md pl-9 pr-3 py-2 text-xs font-mono font-bold text-slate-900 focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900"
+                          />
                         </div>
                         <p className="text-[11px] text-slate-400">
-                          {selectedProvider.id === 'fampay_merchant'
-                            ? 'Enter the email address registered with your FamPay wallet account.'
-                            : `Enter the mobile number linked with your ${selectedProvider.name} account.`}
+                          Enter the mobile number linked with your {selectedProvider.name} account.
                         </p>
                       </div>
 
@@ -695,16 +680,16 @@ export default function UpiDevicesTab({}: UpiDevicesTabProps) {
                             className="px-4 py-2 rounded-md bg-slate-900 hover:bg-slate-800 text-white font-semibold text-xs transition active:scale-95 disabled:opacity-50 flex items-center gap-1.5"
                           >
                             {isLinking ? (
-                              <>
-                                <RefreshCw className="w-3.5 h-3.5 animate-spin" />
-                                <span>Sending OTP...</span>
-                              </>
-                            ) : (
-                              <>
-                                <span>Get Verification OTP</span>
-                                <ArrowRight className="w-3.5 h-3.5" />
-                              </>
-                            )}
+                            <>
+                              <RefreshCw className="w-3.5 h-3.5 animate-spin" />
+                              <span>Connecting...</span>
+                            </>
+                          ) : (
+                            <>
+                              <span>Connect</span>
+                              <ArrowRight className="w-3.5 h-3.5" />
+                            </>
+                          )}
                           </button>
                         </div>
                       </div>
@@ -714,9 +699,7 @@ export default function UpiDevicesTab({}: UpiDevicesTabProps) {
                     <form onSubmit={handleVerifyProvider} className="space-y-4">
                       <div className="space-y-1.5">
                         <label className="block text-xs font-semibold text-slate-700">
-                          {selectedProvider.id === 'fampay_merchant'
-                            ? `Enter 6-Digit OTP sent to ${providerEmail}`
-                            : `Enter 6-Digit OTP sent to +91 ${providerMobile}`}
+                          Enter 6-Digit OTP sent to +91 {providerMobile}
                         </label>
                         <div className="relative">
                           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
@@ -740,7 +723,7 @@ export default function UpiDevicesTab({}: UpiDevicesTabProps) {
                           onClick={() => setOtpSent(false)}
                           className="text-xs text-blue-600 hover:underline"
                         >
-                          {selectedProvider.id === 'fampay_merchant' ? 'Change Email' : 'Change Number'}
+                          Change Number
                         </button>
                         <button
                           type="submit"
