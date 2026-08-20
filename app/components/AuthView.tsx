@@ -7,8 +7,7 @@ import {
   Eye, 
   EyeOff, 
   Layers,
-  ArrowRight,
-  Zap
+  ArrowRight
 } from 'lucide-react';
 
 interface AuthViewProps {
@@ -42,18 +41,6 @@ export default function AuthView({
         router.push('/user/dashboard');
       }
     }, 350);
-  };
-
-  const handleDemoLogin = () => {
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-      if (onAuthSuccess) {
-        onAuthSuccess();
-      } else {
-        router.push('/user/dashboard');
-      }
-    }, 250);
   };
 
   return (
@@ -185,15 +172,6 @@ export default function AuthView({
                 <ArrowRight className="w-3.5 h-3.5" />
               </>
             )}
-          </button>
-
-          <button
-            type="button"
-            onClick={handleDemoLogin}
-            className="w-full py-2 rounded-lg bg-slate-100 hover:bg-slate-200/80 text-slate-700 font-medium text-xs transition active:scale-[0.98] flex items-center justify-center gap-1.5"
-          >
-            <Zap className="w-3 h-3 text-amber-500 fill-amber-500" />
-            <span>Instant Demo Login</span>
           </button>
         </form>
 
