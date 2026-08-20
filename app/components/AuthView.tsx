@@ -58,11 +58,6 @@ export default function AuthView({
         <h1 className="text-xl font-bold text-slate-900">
           {mode === 'login' ? 'Sign in to your account' : 'Create your account'}
         </h1>
-        <p className="text-xs text-slate-500 mt-1">
-          {mode === 'login'
-            ? 'Enter your merchant credentials to continue'
-            : 'Get started with zero transaction fee gateway'}
-        </p>
       </div>
 
       {/* Main Card */}
