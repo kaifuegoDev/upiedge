@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { 
-  Store, 
+  Building2, 
   Plus, 
   ToggleLeft, 
   ToggleRight 
@@ -41,9 +41,9 @@ export default function MultiMerchantTab() {
         /* Empty State */
         <div className="p-12 rounded-xl bg-white border border-slate-200/90 shadow-2xs text-center space-y-4">
           <div className="py-6 flex flex-col items-center justify-center space-y-3">
-            {/* Merchant Store Empty Icon */}
+            {/* Multi Merchant Empty Icon */}
             <div className="w-14 h-14 rounded-2xl bg-slate-100 border border-slate-200/80 flex items-center justify-center mx-auto shadow-2xs">
-              <Store className="w-7 h-7 text-slate-500 stroke-[1.8]" />
+              <Building2 className="w-7 h-7 text-slate-500 stroke-[1.8]" />
             </div>
 
             <div className="space-y-1 max-w-sm mx-auto">
@@ -75,7 +75,7 @@ export default function MultiMerchantTab() {
               <div className="flex items-start justify-between">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-lg bg-slate-100 flex items-center justify-center text-slate-700 font-bold">
-                    <Store className="w-5 h-5" />
+                    <Building2 className="w-5 h-5" />
                   </div>
                   <div>
                     <h4 className="text-xs font-bold text-slate-900">{merchant.name}</h4>
