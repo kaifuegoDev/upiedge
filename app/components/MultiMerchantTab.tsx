@@ -41,13 +41,9 @@ export default function MultiMerchantTab() {
         /* Empty State */
         <div className="p-12 rounded-xl bg-white border border-slate-200/90 shadow-2xs text-center space-y-4">
           <div className="py-6 flex flex-col items-center justify-center space-y-3">
-            {/* Clipboard Empty Icon (Consistent Design Across App) */}
-            <div className="w-14 h-16 rounded-xl bg-slate-200/90 flex flex-col items-center justify-center mx-auto relative shadow-2xs pt-1">
-              <div className="w-6 h-2 bg-slate-400/90 rounded-full absolute -top-1" />
-              <div className="space-y-1.5 w-7">
-                <div className="h-1 bg-slate-400/80 rounded-full w-full" />
-                <div className="h-1 bg-slate-400/80 rounded-full w-4" />
-              </div>
+            {/* Merchant Store Empty Icon */}
+            <div className="w-14 h-14 rounded-2xl bg-slate-200/90 flex items-center justify-center mx-auto relative shadow-2xs">
+              <Store className="w-7 h-7 text-slate-600 stroke-[1.8]" />
               <div className="w-4 h-4 rounded-full bg-slate-600 text-white flex items-center justify-center text-[9px] font-bold absolute -bottom-1 -right-1 shadow-xs">
                 ✕
               </div>
